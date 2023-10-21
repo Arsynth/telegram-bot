@@ -10,7 +10,7 @@ pub use self::http::{Body, Multipart, MultipartValue, RequestUrl};
 pub use self::http::{HttpRequest, HttpResponse, Method};
 
 #[macro_use]
-mod request_types;
+pub mod request_types;
 pub use self::request_types::*;
 
 mod response_types;
