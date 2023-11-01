@@ -3,7 +3,7 @@ use serde::de::{Deserialize, Deserializer, Error};
 use crate::types::*;
 
 /// This object represents a Telegram user or bot.
-#[derive(Debug, Clone, PartialEq, PartialOrd, Eq, Ord, Hash, Deserialize)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Eq, Ord, Hash, Deserialize, Serialize)]
 pub struct User {
     /// Unique identifier for this user or bot.
     pub id: UserId,

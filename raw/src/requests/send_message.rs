@@ -20,6 +20,8 @@ pub struct SendMessage<'s> {
     reply_to_message_id: Option<MessageId>,
     #[serde(skip_serializing_if = "Option::is_none")]
     reply_markup: Option<ReplyMarkup>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    entities: Option<Vec<RawMessageEntity>>,
 }
 
 impl<'c, 's> Request for SendMessage<'s> {
@@ -37,6 +39,14 @@ impl<'s> SendMessage<'s> {
         C: ToChatRef,
         T: Into<Cow<'s, str>>,
     {
+        Self::new_with_entities(chat, text, None, None)
+    }
+
+    pub fn new_with_entities<C, T>(chat: C, text: T, entities: Option<Vec<RawMessageEntity>>, reply_markup: Option<ReplyMarkup>) -> Self
+    where
+        C: ToChatRef,
+        T: Into<Cow<'s, str>>,
+    {
         SendMessage {
             chat_id: chat.to_chat_ref(),
             text: text.into(),
@@ -44,7 +54,8 @@ impl<'s> SendMessage<'s> {
             disable_web_page_preview: false,
             disable_notification: false,
             reply_to_message_id: None,
-            reply_markup: None,
+            reply_markup,
+            entities,
         }
     }
 

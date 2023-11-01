@@ -51,6 +51,8 @@ pub struct ReplyKeyboardMarkup {
     one_time_keyboard: bool,
     #[serde(skip_serializing_if = "Not::not")]
     selective: bool,
+    #[serde(skip_serializing_if = "Not::not")]
+    is_persistent: bool
 }
 
 impl ReplyKeyboardMarkup {
@@ -60,6 +62,7 @@ impl ReplyKeyboardMarkup {
             resize_keyboard: false,
             one_time_keyboard: false,
             selective: false,
+            is_persistent: false
         }
     }
 
@@ -94,6 +97,11 @@ impl ReplyKeyboardMarkup {
     /// sender of the original message.
     pub fn selective(&mut self) -> &mut Self {
         self.selective = true;
+        self
+    }
+
+    pub fn persistent(&mut self) -> &mut Self {
+        self.is_persistent = true;
         self
     }
 

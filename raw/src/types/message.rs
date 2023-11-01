@@ -688,7 +688,7 @@ impl<'de> Deserialize<'de> for MessageEntity {
 
 /// This object represents one special entity in a text message.
 /// For example, hashtags, usernames, URLs, etc. Directly mapped.
-#[derive(Debug, Clone, PartialEq, PartialOrd, Deserialize)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Deserialize, Serialize)]
 pub struct RawMessageEntity {
     /// Type of the entity. Can be mention (@username), hashtag, bot_command, url, email,
     /// bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block),
