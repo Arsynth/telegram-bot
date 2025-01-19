@@ -212,7 +212,7 @@ impl InlineKeyboardMarkup {
         }
     }
 
-    fn init(inline_keyboard: Vec<Vec<InlineKeyboardButton>>) -> Self {
+    pub fn init(inline_keyboard: Vec<Vec<InlineKeyboardButton>>) -> Self {
         Self { inline_keyboard }
     }
 

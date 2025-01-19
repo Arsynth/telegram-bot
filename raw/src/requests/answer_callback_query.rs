@@ -31,7 +31,7 @@ impl<'i, 't> Request for AnswerCallbackQuery<'t> {
 }
 
 impl<'t> AnswerCallbackQuery<'t> {
-    fn new<Q, T>(query: Q, text: T) -> Self
+    pub fn new<Q, T>(query: Q, text: T) -> Self
     where
         Q: ToCallbackQueryId,
         T: Into<Cow<'t, str>>,
@@ -45,7 +45,7 @@ impl<'t> AnswerCallbackQuery<'t> {
         }
     }
 
-    fn acknowledge<Q>(query: Q) -> Self
+    pub fn acknowledge<Q>(query: Q) -> Self
     where
         Q: ToCallbackQueryId,
     {
