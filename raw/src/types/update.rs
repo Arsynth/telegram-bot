@@ -12,6 +12,12 @@ pub struct Update {
     pub kind: UpdateKind,
 }
 
+impl Update {
+    pub fn chat_id(&self) -> Option<ChatId> {
+        self.kind.chat_id()
+    }
+}
+
 /// Kind of the incoming update.
 #[derive(Debug, Clone, PartialEq, PartialOrd, Deserialize)]
 pub enum UpdateKind {
@@ -54,3 +60,21 @@ pub enum UpdateKind {
     #[doc(hidden)]
     Unknown,
 }
+
+impl UpdateKind {
+    pub fn chat_id(&self) -> Option<ChatId> {
+        match self {
+            UpdateKind::Message(msg) => Some(msg.chat.id()),
+            UpdateKind::EditedMessage(msg) => Some(msg.chat.id()),
+            UpdateKind::ChannelPost(post) => Some(post.chat.id.into()),
+            UpdateKind::EditedChannelPost(post) => Some(post.chat.id.into()),
+            UpdateKind::CallbackQuery(callback_query) => { 
+                match callback_query.message {
+                    Some(ref msg) => Some(msg.chat_id()),
+                    None => None,
+                }
+            },
+            _ => None,
+        }
+    }
+ }

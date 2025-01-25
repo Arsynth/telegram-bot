@@ -10,6 +10,16 @@ pub enum MessageOrChannelPost {
     ChannelPost(ChannelPost),
 }
 
+impl MessageOrChannelPost {
+    pub fn chat_id(&self) -> ChatId {
+        match self {
+            MessageOrChannelPost::Message(m) => m.chat_id(),
+            MessageOrChannelPost::ChannelPost(c) => c.chat.id.into(),
+        }
+        
+    }
+}
+
 /// This object represents a chat message.
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
 pub struct Message {
@@ -30,6 +40,12 @@ pub struct Message {
     pub edit_date: Option<Integer>,
     /// Kind of the message.
     pub kind: MessageKind,
+}
+
+impl Message {
+    pub fn chat_id(&self) -> ChatId {
+        self.chat.id()
+    }
 }
 
 /// This object represents a channel message.
