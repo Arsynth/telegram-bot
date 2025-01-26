@@ -227,6 +227,18 @@ pub enum MessageKind {
     Unknown { raw: RawMessage },
 }
 
+impl MessageKind {
+    pub fn text(&self) -> Option<String> {
+        match self {
+            MessageKind::Text { data, entities: _} => Some(data.clone()),
+            MessageKind::Video { data: _, caption, media_group_id: _ } => caption.clone(),
+            MessageKind::Photo { data: _, caption, media_group_id: _ } => caption.clone(),
+            _ => None,
+        }
+        
+    }
+}
+
 impl Message {
     fn from_raw_message(raw: RawMessage) -> Result<Self, String> {
         let id = raw.message_id;
