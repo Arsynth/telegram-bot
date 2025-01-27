@@ -399,6 +399,12 @@ impl ToCallbackQueryId for CallbackQuery {
     }
 }
 
+impl ToCallbackQueryId for CallbackQueryId {
+    fn to_callback_query_id(&self) -> CallbackQueryId {
+        self.clone()
+    }
+}
+
 /// Unique identifier for CallbackQuery.
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub struct CallbackQueryId(String);
