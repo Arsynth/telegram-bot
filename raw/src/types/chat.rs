@@ -106,6 +106,26 @@ impl Chat {
             Chat::Unknown(ref x) => x.id.into(),
         }
     }
+
+    pub fn name(&self) -> String {
+        match *self {
+            Chat::Private(ref user) => {
+                format!("{} {}", user.first_name, user.last_name.clone().unwrap_or_default())
+                    .trim_end()
+                    .into()
+            }
+            Chat::Group(ref group) => group.title.clone(),
+            Chat::Supergroup(ref supergroup) => supergroup.title.clone(),
+            Chat::Channel(ref channel) => channel.title.clone(),
+            Chat::Unknown(ref raw_chat) => format!(
+                "{} {}",
+                raw_chat.first_name.clone().unwrap_or_default(),
+                raw_chat.last_name.clone().unwrap_or_default()
+            )
+            .trim_end()
+            .into(),
+        }
+    }
 }
 
 impl<'de> Deserialize<'de> for Chat {
