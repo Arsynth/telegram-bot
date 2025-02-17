@@ -74,6 +74,7 @@ impl UpdateKind {
                     None => None,
                 }
             },
+            UpdateKind::ChatJoinRequest(request) => Some(request.chat.id()),
             _ => None,
         }
     }

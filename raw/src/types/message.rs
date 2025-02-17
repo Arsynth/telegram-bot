@@ -26,7 +26,7 @@ pub struct Message {
     /// Unique message identifier inside this chat.
     pub id: MessageId,
     /// Sender, can be empty for messages sent to channels.
-    pub from: User,
+    pub from: Option<User>,
     /// Date the message was sent in Unix time.
     pub date: Integer,
     /// Conversation the message belongs to.
@@ -242,17 +242,14 @@ impl MessageKind {
 impl Message {
     fn from_raw_message(raw: RawMessage) -> Result<Self, String> {
         let id = raw.message_id;
-        let from = match raw.from.clone() {
-            Some(from) => from,
-            None => return Err(format!("Missing `from` field for Message")),
-        };
+        let from = raw.from.clone();
         let date = raw.date;
         let chat = match raw.chat.clone() {
             Chat::Private(x) => MessageChat::Private(x),
             Chat::Group(x) => MessageChat::Group(x),
             Chat::Supergroup(x) => MessageChat::Supergroup(x),
             Chat::Unknown(x) => MessageChat::Unknown(x),
-            Chat::Channel(_) => return Err(format!("Channel chat in Message")),
+            Chat::Channel(x) => MessageChat::Channel(x),
         };
 
         let reply_to_message = raw.reply_to_message.clone();

@@ -34,6 +34,7 @@ pub mod stop_message_live_location;
 pub mod stop_poll;
 pub mod unban_chat_member;
 pub mod unpin_chat_message;
+pub mod approve_chat_join_request;
 
 pub use self::_base::*;
 pub use self::answer_callback_query::*;
@@ -70,3 +71,4 @@ pub use self::stop_message_live_location::*;
 pub use self::stop_poll::*;
 pub use self::unban_chat_member::*;
 pub use self::unpin_chat_message::*;
+pub use self::approve_chat_join_request::*;

@@ -70,6 +70,7 @@ pub enum MessageChat {
     Private(User),
     Group(Group),
     Supergroup(Supergroup),
+    Channel(Channel),
     #[doc(hidden)]
     Unknown(RawChat),
 }
@@ -81,6 +82,7 @@ impl MessageChat {
             MessageChat::Group(ref x) => x.id.into(),
             MessageChat::Supergroup(ref x) => x.id.into(),
             MessageChat::Unknown(ref x) => x.id.into(),
+            MessageChat::Channel(ref x) => x.id.into(),
         }
     }
 }
