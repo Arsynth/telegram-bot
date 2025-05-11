@@ -46,6 +46,10 @@ impl Message {
     pub fn chat_id(&self) -> ChatId {
         self.chat.id()
     }
+    
+    pub fn from(&self) -> Option<&User> {
+        self.from.as_ref()
+    }
 }
 
 /// This object represents a channel message.

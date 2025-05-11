@@ -16,6 +16,10 @@ impl Update {
     pub fn chat_id(&self) -> Option<ChatId> {
         self.kind.chat_id()
     }
+
+    pub fn from(&self) -> Option<UserId> {
+        self.kind.from()
+    }
 }
 
 /// Kind of the incoming update.
@@ -75,6 +79,15 @@ impl UpdateKind {
                 }
             },
             UpdateKind::ChatJoinRequest(request) => Some(request.chat.id()),
+            _ => None,
+        }
+    }
+
+    pub fn from(&self) -> Option<UserId> {
+        match self {
+            UpdateKind::Message(msg) => Some(msg.from()?.id),
+            UpdateKind::EditedMessage(msg) => Some(msg.from()?.id),
+            UpdateKind::CallbackQuery(query) => Some(query.from.id),
             _ => None,
         }
     }
